@@ -35,10 +35,10 @@ class Ship(Cell):
         return None
 
     @classmethod
-    def create_ship(cls):
-        user = 'Player1'
-        sunk = False
-        parts = get_ship_coords()
+    def create_ship(cls, parts, user = 'Player1', sunk = False):
+        parts = list(get_ship_coords())
+        ship = list(user, sunk, parts)
+        return ship
 
 
 def render_board():
@@ -99,9 +99,10 @@ def main():
             board_row.append(live_cell)
 
     res = get_ship_coords()
-    print(res)
+    res_ship = Ship.create_ship(res)
+    print(res_ship)
 
-    for pair in res:
+    for pair in res():
         x,y = pair
         c = board[y][x]
         c.is_ship = True
